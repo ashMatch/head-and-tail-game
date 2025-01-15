@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cara ou Coroa</title>
+</head>
+<body>
+    <script>
+        let wins =0
+        let losses =0
+        function createElements(){
+
+            const div = document.createElement('div');
+            const div2 = document.createElement('div');
+            const p = document.createElement('p');
+            const headsButton = document.createElement('button');
+            const tailsButton = document.createElement('button');
+            div.classList.add('text-container');
+            div2.classList.add('buttons-container');
+            div2.style.setProperty('display', 'flex');
+            div2.style.justifyContentCenter = 'flex-start';
+            div2.style.textAlign = 'center';
+
+            p.innerHTML = `Selecione Cara ou Coroa`;
+
+            headsButton.classList.add('button');
+            tailsButton.classList.add('button');
+
+            headsButton.textContent = 'Cara';
+            headsButton.style.padding = '10px';
+            headsButton.style.marginRight = '4px';
+
+            tailsButton.textContent = 'Coroa';
+            tailsButton.style.padding = '10px';
+
+
+            document.body.appendChild(div);
+            document.body.appendChild(div2);
+            div.appendChild(p);
+            div2.appendChild(headsButton);
+            div2.appendChild(tailsButton);
+
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', gameLogic)
+            })
+        }
+        function gameLogic(event){
+            console.log(event.target.textContent)
+            const randomChoice = (min, max) => Math.floor(Math.random()*(max-min+1)+min)
+            const yourChoiceBinary = (event.target.textContent.toLowerCase() === 'cara') ? 1 : 2
+            const computersChoice = (randomChoice(1,2) === 1) ? "Cara" : "Coroa"
+            const result = (computersChoice.toLowerCase() === event.target.textContent.toLowerCase()) ? "Ganhou" : "Perdeu"
+
+
+            if (result === "Ganhou") {
+                wins += 1
+            } else {
+                losses += 1
+            }
+            // randomChoice(1,2)
+
+            const p = document.querySelector('p');
+
+            p.innerHTML = `Computador selecionou: ${computersChoice}<br>Jogador ${result}<br>Jogador ${wins} Computador ${losses}`
+
+
+
+            console.log("computador escolheu binario: "+randomChoice(1,2))
+            console.log("computador escolheu: "+computersChoice)
+            console.log("voce escolheu binario: "+yourChoiceBinary)
+            console.log("voce escolheu : "+event.target.textContent)
+            console.log("\nResultado foi: "+randomChoice(1,2))
+        }
+        createElements();
+
+    </script>
+</body>
+</html>
